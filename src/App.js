@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navbar } from './modules/shared/components/Navbar';
+import { Dashboard } from "./modules/posts/components/Dashboard";
+import { List } from './modules/posts/components/List';
+import { NotFound } from "./modules/shared/components/NotFound";
+import { PostProvider } from "./context/PostContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PostProvider>
+      <BrowserRouter>
+        <Navbar/>
+        <div className="container">
+          <Routes>
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/list' element={<List />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </PostProvider>
   );
 }
 
